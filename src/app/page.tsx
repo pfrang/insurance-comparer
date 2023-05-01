@@ -36,7 +36,7 @@ const fetchYr = async (): Promise<Movie[] | undefined> => {
   const res = await fetch(Url, {next: { revalidate: 60}})
   const waitout = await new Promise(resolve2 => setTimeout(resolve2, 2000))
 
-  const nextBE = 'http://localhost:3000/api/hello'
+  const nextBE = 'http://127.0.0.1:3000/api/hello'
   const res2 = await fetch(nextBE, {
     method: "POST",
     headers: {
