@@ -18,7 +18,13 @@ export type Response2 = {
 export async function POST(request: Request) {
   const data = request?.json()
   const res = await fetchIMDB(request.headers);
-  return NextResponse.json(res)
+  return NextResponse.json(res, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    }
+  })
 }
 
 
