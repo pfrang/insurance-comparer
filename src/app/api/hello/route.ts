@@ -2,10 +2,7 @@ import { NextResponse } from "next/server";
 import { Movie } from "./response-schema";
 
 export async function GET(request: Request, { params }: any) {
-  const id = params?.id
-  const {searchParams } = new URL(request.url)
-
-  return new Response('Hello, Next.js!')
+  return new Response('Hello, from GET YYo!')
 }
 
 
@@ -15,8 +12,7 @@ export type Response2 = {
 }
 
 export async function POST(request: Request) {
-  const data = request?.json()
-  const res = await fetchIMDB(request.headers);
+  const res = await fetchIMDB();
 
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -28,7 +24,7 @@ export async function POST(request: Request) {
 }
 
 
-const fetchIMDB = async (headers: Headers): Promise<Movie[]>  => {
+const fetchIMDB = async (): Promise<Movie[]>  => {
 
 
   const url = 'https://imdb-top-100-movies.p.rapidapi.com/'

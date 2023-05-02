@@ -1,4 +1,3 @@
-"use client"
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Card from './components/card';
@@ -12,8 +11,6 @@ export default async function Home() {
 
   const slicedItems = data?.slice(0,10);
 
-
-
   return (
     <>
       <div className='h-10 py-10'>
@@ -25,7 +22,6 @@ export default async function Home() {
           )
         })}
         </div>
-
     </>
   )
 }
@@ -37,7 +33,7 @@ const fetchYr = async (): Promise<Movie[] | undefined> => {
   const res = await fetch(Url, {next: { revalidate: 60}})
   const waitout = await new Promise(resolve2 => setTimeout(resolve2, 2000))
 
-  const nextBE = 'http://127.0.0.1:3000/api/hello'
+  const nextBE = 'http://localhost:3000/api/hello'
   const res2 = await fetch(nextBE, {
     method: "POST",
     headers: {
@@ -51,6 +47,3 @@ const fetchYr = async (): Promise<Movie[] | undefined> => {
 
   return res2.json();
 }
-
-
-export const revalidate = 60;
