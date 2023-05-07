@@ -6,11 +6,16 @@ import { useRef, useState } from "react";
 export const Card = ({rank, title, thumbnail, rating, id, year, image, description, trailer, genre, director, writers, imdbid}: Movie) => {
 
 
-  const modal = useRef();
+  const modal = useRef(null);
 
   const showModal = () => {
+    // @ts-ignore
+    modal && modal?.current?.showModal()
+  }
 
-    modal && modal.current.showModal()
+  const closeModal = () => {
+    // @ts-ignore
+    modal && modal?.current?.close()
   }
 
   return (
@@ -22,7 +27,7 @@ export const Card = ({rank, title, thumbnail, rating, id, year, image, descripti
         <div>
           This is a modal
         </div>
-        <button onClick={() => modal.current.close()}>Close</button>
+        <button onClick={() => closeModal()}>Close</button>
       </dialog>
     <div>
       <h2>Title: </h2>
