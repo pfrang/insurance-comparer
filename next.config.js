@@ -3,10 +3,11 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  output: 'export',
+  // output: 'export',
+  // trailingSlash: true,
   images: {
-    loader: 'akamai',
-    path: '',
+    // loader: 'akamai',
+    // path: '',
     domains: [
       "img.etimg.com",
       "assets.vogue.com",
