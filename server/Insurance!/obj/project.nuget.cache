@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "WDR8PidVXzhGntx+jrmFi1LicPXYeqI2hRmWfRRJXL8ztn2OlXVyfR48IU1RPvKolG5Dj+qm3PmthK/Ui3TKWQ==",
+  "success": true,
+  "projectFilePath": "/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/Insurance!.csproj",
+  "expectedPackageFiles": [
+    "/home/pfrang/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/home/pfrang/.nuget/packages/selenium.support/4.9.1/selenium.support.4.9.1.nupkg.sha512",
+    "/home/pfrang/.nuget/packages/selenium.webdriver/4.9.1/selenium.webdriver.4.9.1.nupkg.sha512",
+    "/home/pfrang/.nuget/packages/selenium.webdriver.chromedriver/113.0.5672.6300/selenium.webdriver.chromedriver.113.0.5672.6300.nupkg.sha512",
+    "/home/pfrang/.nuget/packages/selenium.webdriver.geckodriver/0.33.0/selenium.webdriver.geckodriver.0.33.0.nupkg.sha512",
+    "/home/pfrang/.nuget/packages/seleniumextras.waithelpers/1.0.2/seleniumextras.waithelpers.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

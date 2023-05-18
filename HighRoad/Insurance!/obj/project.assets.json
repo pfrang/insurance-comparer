@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
@@ -195,7 +195,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net7.0": [
       "Selenium.Support >= 4.9.1",
       "Selenium.WebDriver >= 4.9.1",
       "Selenium.WebDriver.ChromeDriver >= 113.0.5672.6300",
@@ -204,31 +204,29 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\myran\\.nuget\\packages\\": {}
+    "/home/pfrang/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\myran\\OneDrive\\Skrivebord\\Stian\\Insurance\\Insurance\\Insurance!\\Insurance!\\Insurance!.csproj",
+      "projectUniqueName": "/home/pfrang/code/pfrang/personal-projects/insurance-comparer/HighRoad/Insurance!/Insurance!.csproj",
       "projectName": "Insurance!",
-      "projectPath": "C:\\Users\\myran\\OneDrive\\Skrivebord\\Stian\\Insurance\\Insurance\\Insurance!\\Insurance!\\Insurance!.csproj",
-      "packagesPath": "C:\\Users\\myran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\myran\\OneDrive\\Skrivebord\\Stian\\Insurance\\Insurance\\Insurance!\\Insurance!\\obj\\",
+      "projectPath": "/home/pfrang/code/pfrang/personal-projects/insurance-comparer/HighRoad/Insurance!/Insurance!.csproj",
+      "packagesPath": "/home/pfrang/.nuget/packages/",
+      "outputPath": "/home/pfrang/code/pfrang/personal-projects/insurance-comparer/HighRoad/Insurance!/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\myran\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/pfrang/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {}
         }
       },
@@ -239,8 +237,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "Selenium.Support": {
             "target": "Package",
@@ -279,7 +277,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
       }
     }
   }

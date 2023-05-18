@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Card from './components/card';
 import { Movie } from './api/hello/response-schema';
+import { useFormik } from 'formik';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -10,6 +10,17 @@ export default async function Home() {
   const data = await fetchYr();
 
   const slicedItems = data?.slice(0,10);
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+    },
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <>
