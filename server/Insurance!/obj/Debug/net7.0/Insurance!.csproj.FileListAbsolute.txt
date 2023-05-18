@@ -44,3 +44,9 @@
 /home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/obj/Debug/net7.0/Insurance!.pdb
 /home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/obj/Debug/net7.0/Insurance!.genruntimeconfig.cache
 /home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/obj/Debug/net7.0/ref/Insurance!.dll
+/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/bin/Debug/net7.0/dotenv.net.dll
+/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/bin/Debug/net7.0/DotNetEnv.dll
+/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/bin/Debug/net7.0/Microsoft.Extensions.Configuration.dll
+/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/bin/Debug/net7.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/bin/Debug/net7.0/Microsoft.Extensions.Primitives.dll
+/home/pfrang/code/pfrang/personal-projects/insurance-comparer/server/Insurance!/bin/Debug/net7.0/Sprache.dll

@@ -9,6 +9,14 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using static System.Net.Mime.MediaTypeNames;
 
+using DotNetEnv;
+
+// Load environment variables from .env file
+
+// Access the value of the environment variable
+
+
+
 namespace Insurance_
 {
     public class TRYG
@@ -18,10 +26,11 @@ namespace Insurance_
         string b = "";
 
 
-
-
         public void TrygReiseForsikring()
         {
+            // ChromeOptions options = new ChromeOptions();d
+            // options.AddArgument("--no-sandbox");
+            // options.BinaryLocation = "/usr/bin/google-chrome";
             IWebDriver driver = new ChromeDriver();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
 
