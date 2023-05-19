@@ -30,8 +30,6 @@ namespace Insurance_
         HttpListenerContext context = listener.GetContext();
         HttpListenerRequest request = context.Request;
 
-        Console.WriteLine(string.IsNullOrEmpty(request.ContentType));
-
         switch (request.HttpMethod)
         {
           case "GET":

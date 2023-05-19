@@ -6,7 +6,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 
-TRYG tryg = new TRYG();
-tryg.TrygReiseForsikring();
-// Server server = new Server();
-// server.Run();
+// TRYG tryg = new TRYG();
+// tryg.TrygReiseForsikring();
+Server server = new Server();
+server.Run();
