@@ -1,10 +1,6 @@
-import axios from 'axios'
-
 export class ServiceLayerApiClient {
-  private readonly baseUrl: string;
-  httpClient: Promise<any>;
+  readonly baseUrl: string;
   constructor() {
       this.baseUrl = `http://localhost:${process.env.SERVER_PORT}/`
-      this.httpClient = fetch(this.baseUrl)
    }
 }
