@@ -4,6 +4,8 @@ import { TravelInsuranceFormValidationSchema, initialValues } from "./form-setti
 
 import { TravelInsuranceFormFields, TravelInsuranceFormShape } from "./form-settings";
 import { FormWithInputContainer } from "../utils/form-with-input-container";
+import { serverEndpoint } from "../api/server/route";
+import { NextApiClient } from "../api/next-api-client";
 
 export const TravelInsuranceForm = () => {
   // write a Formik with the imported Formik component
@@ -13,8 +15,10 @@ export const TravelInsuranceForm = () => {
       validationSchema={TravelInsuranceFormValidationSchema}
       validateOnChange={false}
       validateOnBlur={false}
-      onSubmit={(values, formikHelpers) => {
-        console.log(values);
+      onSubmit={async (values, formikHelpers) => {
+        const res = await fetchServer(values)
+        // console.log("--",res);
+
       }}>
       {(formikProps) => {
         return (
@@ -32,3 +36,10 @@ export const TravelInsuranceForm = () => {
   );
 }
 export default TravelInsuranceForm;
+
+
+const fetchServer = async (values: TravelInsuranceFormShape) => {
+
+  const res = await new NextApiClient({ endpoint: serverEndpoint }).post(values);
+  console.log("res", res.text());
+}

@@ -1,5 +1,7 @@
 import { RootServiceLayerApiClient } from "./api-client/server-api-client"
 
+export const serverEndpoint = 'server'
+
 export async function GET(request: Request, { params }: any) {
   const response = await RootServiceLayerApiClient.get()
 
@@ -10,7 +12,8 @@ export async function GET(request: Request, { params }: any) {
 
 
 export async function POST(request: Request, { params }: any) {
+  // const response = await RootServiceLayerApiClient.post(request.body)
+  console.log("hfeuwi");
 
-  const response = await RootServiceLayerApiClient.post(request.body)
-  return new Response('Hello, from GET YYo!')
+  return new Response('Hello, from POST YYo!')
 }
