@@ -25,7 +25,6 @@ export default function RootLayout({
               <div className='flex w-full h-full justify-center items-center'><p>Sammenlign forsikringer</p></div>
             </div>
           </header>
-
           <section id="body">
           {children}
           </section>

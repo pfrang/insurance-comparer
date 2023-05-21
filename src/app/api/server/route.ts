@@ -2,6 +2,9 @@ import { RootServiceLayerApiClient } from "./api-client/server-api-client"
 
 export async function GET(request: Request, { params }: any) {
   const response = await RootServiceLayerApiClient.get()
+
+  console.log("--", response);
+
   return new Response('Hello, from GET YYo!')
 }
 

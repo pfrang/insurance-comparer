@@ -1,24 +1,26 @@
+// "use client"
 import { Inter } from 'next/font/google'
 import Card from './components/card';
 import { Movie } from './api/hello/response-schema';
-
+import Form, { TravelInsuranceForm } from './components/travel-insurance-form';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default async function Home() {
-  const data = await fetchYr();
+  // const data = await fetchYr();
 
-  const slicedItems = data?.slice(0,10);
+  // const slicedItems = data?.slice(0,10);
   return (
     <>
       <div className='h-10 py-10'>
       </div>
       <div className='flex flex-col gap-4 items-center justify-center w-full'>
-      {slicedItems && slicedItems.map((movie,idx) => {
-        return (
-          <Card key={`${movie.id}-${idx}`} {...movie} />
-          )
-        })}
+        {/* {slicedItems && slicedItems.map((movie,idx) => {
+          return (
+            <Card key={`${movie.id}-${idx}`} {...movie} />
+            )
+          })} */}
+        <TravelInsuranceForm />
         </div>
     </>
   )
