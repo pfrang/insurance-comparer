@@ -10,6 +10,7 @@ using SeleniumExtras.WaitHelpers;
 using static System.Net.Mime.MediaTypeNames;
 
 using DotNetEnv;
+using System.Threading;
 
 // Load environment variables from .env file
 
