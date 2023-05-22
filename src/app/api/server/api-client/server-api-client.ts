@@ -1,11 +1,18 @@
 import { ServiceLayerApiClient } from "../../sl-api-client";
 
 export abstract class RootServiceLayerApiClient extends ServiceLayerApiClient {
+  // readonly baseUrl: string;
 
-  static baseUrl: string = this.baseUrl
+  // constructor() {
+  //     super();
+  //     this.baseUrl = `http://localhost:${process.env.NEXT_PUBLIC_SERVER_PORT}/`
+  // }
+
+  // Inherited baseUrl from ServiceLayerApiClient
 
   static async get() {
-    const url = this.baseUrl
+
+    const url = `http://localhost:${process.env.NEXT_PUBLIC_SERVER_PORT}/`
 
     try {
       const response = await fetch(url);
@@ -18,8 +25,7 @@ export abstract class RootServiceLayerApiClient extends ServiceLayerApiClient {
   }
 
   static async post(body: any) {
-    const url = `${this.baseUrl}`;
-
+    const url = `http://localhost:${process.env.NEXT_PUBLIC_SERVER_PORT}/`
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -28,8 +34,7 @@ export abstract class RootServiceLayerApiClient extends ServiceLayerApiClient {
         },
         body: JSON.stringify(body)
       });
-
-      const data = await response.json();
+      const data = await response.json()
       return data;
     } catch (error) {
       console.error('Error:', error);

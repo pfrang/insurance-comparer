@@ -1,13 +1,9 @@
-import next from "next/types";
-
 export interface NextApiClientSettings {
   baseUrl?: string;
   contenType?: string;
   revalidate?: number;
   endpoint: string;
 }
-
-
 export class NextApiClient {
   readonly baseUrl: string;
   readonly url: string;
@@ -37,7 +33,6 @@ export class NextApiClient {
 
   //make the function above with POST method
   async post(body: any) {
-    console.log(this.url);
 
     const res = await fetch(this.url, {
       method: 'POST',
