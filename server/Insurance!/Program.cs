@@ -10,3 +10,4 @@ using OpenQA.Selenium.Support.UI;
 // tryg.TrygReiseForsikring();
 Server server = new Server();
 server.Run();
+//Fuck you Ezikiel!!
