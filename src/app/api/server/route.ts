@@ -13,7 +13,6 @@ export async function POST(request: Request, { params }: any) {
 
   const body = await request.json()
   const response = await RootServiceLayerApiClient.post(body);
-
   return new NextResponse(JSON.stringify(response),{
     status: 200, headers: { 'Content-Type': 'application/json' }
   })

@@ -3,11 +3,19 @@ import { Inter } from 'next/font/google'
 import Card from './components/card';
 import { Movie } from './api/hello/response-schema';
 import Form, { TravelInsuranceForm } from './components/travel-insurance-form';
+import { CResponse, NextApiClient } from './api/next-api-client';
+import { serverEndpoint } from './api/server/route';
+import { TravelInsuranceFormShape } from './components/form-settings';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default async function Home() {
-  // const data = await fetchYr();
+
+  const onSubmit = async (values: TravelInsuranceFormShape): Promise<CResponse> => {
+    'use server';
+    const res = await new NextApiClient({ endpoint: serverEndpoint }).post(values)
+    return res.json()
+  }
 
   // const slicedItems = data?.slice(0,10);
   return (
@@ -20,7 +28,7 @@ export default async function Home() {
             <Card key={`${movie.id}-${idx}`} {...movie} />
             )
           })} */}
-        <TravelInsuranceForm />
+        <TravelInsuranceForm onSubmit={onSubmit} />
         </div>
     </>
   )

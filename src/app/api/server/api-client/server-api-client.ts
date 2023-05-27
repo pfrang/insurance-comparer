@@ -25,7 +25,7 @@ export abstract class RootServiceLayerApiClient extends ServiceLayerApiClient {
   }
 
   static async post(body: any) {
-    const url = `http://localhost:${process.env.NEXT_PUBLIC_SERVER_PORT}/`
+    const url = `http://localhost:${process.env.SERVER_PORT}/`
     try {
       const response = await fetch(url, {
         method: 'POST',

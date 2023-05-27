@@ -5,13 +5,18 @@ import { TravelInsuranceFormValidationSchema, initialValues } from "./form-setti
 import { TravelInsuranceFormFields, TravelInsuranceFormShape } from "./form-settings";
 import { FormWithInputContainer } from "../utils/form-with-input-container";
 import { serverEndpoint } from "../api/server/route";
-import { NextApiClient } from "../api/next-api-client";
+import { CResponse, NextApiClient } from "../api/next-api-client";
 import { useState } from "react";
 
-export const TravelInsuranceForm = () => {
+interface TravelInsuranceFormprops {
+  onSubmit: (values: TravelInsuranceFormShape) => Promise<CResponse>
+}
+
+export const TravelInsuranceForm = ({ onSubmit }: TravelInsuranceFormprops) => {
   // write a Formik with the imported Formik component
 
   const [ response, setResponse ] = useState("")
+
 
   return (
     <>
@@ -20,7 +25,7 @@ export const TravelInsuranceForm = () => {
       validateOnChange={false}
       validateOnBlur={false}
       onSubmit={async (values, formikHelpers) => {
-        const res = await fetchServer(values);
+        const res = await onSubmit(values);
         setResponse(res.message);
       }}>
       {(formikProps) => {
@@ -41,13 +46,3 @@ export const TravelInsuranceForm = () => {
   );
 }
 export default TravelInsuranceForm;
-
-interface CResponse {
-  message: string;
-}
-
-const fetchServer = async (values: TravelInsuranceFormShape): Promise<CResponse> => {
-
-  const res = await new NextApiClient({ endpoint: serverEndpoint }).post(values)
-  return res.json()
-}

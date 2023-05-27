@@ -4,6 +4,10 @@ export interface NextApiClientSettings {
   revalidate?: number;
   endpoint: string;
 }
+
+export interface CResponse {
+  message: string;
+}
 export class NextApiClient {
   readonly baseUrl: string;
   readonly url: string;
@@ -12,7 +16,7 @@ export class NextApiClient {
   readonly endpoint: string;
 
   constructor(settings?: NextApiClientSettings) {
-    this.baseUrl = `http://localhost:${process.env.NEXT_PUBLIC_NEXT_PORT}/api/`
+    this.baseUrl = `http://localhost:${process.env.NEXT_PORT}/api/`
     this.contentType = settings?.contenType || 'application/json'
     this.revalidate = settings?.revalidate || 60
     this.endpoint = settings?.endpoint || ''
@@ -32,8 +36,7 @@ export class NextApiClient {
   }
 
   //make the function above with POST method
-  async post(body: any) {
-
+  async post(body: any): Promise<Response>{
     const res = await fetch(this.url, {
       method: 'POST',
       headers: {
@@ -44,6 +47,7 @@ export class NextApiClient {
         revalidate: this.revalidate
       }
     })
+
     return res
   }
 }
