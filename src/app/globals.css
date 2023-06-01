@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 
-html {
+html,
+body {
   height: 100%;
-  background-color: rgb(79 70 229);
+  background-color: #D8E1EA;
+  overflow-x: hidden;
 }
 
 
