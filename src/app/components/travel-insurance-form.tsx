@@ -4,7 +4,6 @@ import { TravelInsuranceFormValidationSchema, initialValues } from "./form-setti
 
 import { TravelInsuranceFormFields, TravelInsuranceFormShape } from "./form-settings";
 import { FormWithInputContainer } from "../utils/form-with-input-container";
-import { serverEndpoint } from "../api/server/route";
 import { CResponse, NextApiClient } from "../api/next-api-client";
 import { useState } from "react";
 
@@ -12,12 +11,10 @@ interface TravelInsuranceFormprops {
   onSubmit: (values: TravelInsuranceFormShape) => Promise<CResponse>
 }
 
-export const TravelInsuranceForm = ({ onSubmit }: TravelInsuranceFormprops) => {
+export const TravelInsuranceForm = ({  onSubmit }: TravelInsuranceFormprops) => {
   // write a Formik with the imported Formik component
 
   const [ response, setResponse ] = useState("")
-
-
   return (
     <>
     <Formik initialValues={initialValues}
@@ -45,4 +42,5 @@ export const TravelInsuranceForm = ({ onSubmit }: TravelInsuranceFormprops) => {
     </>
   );
 }
+
 export default TravelInsuranceForm;

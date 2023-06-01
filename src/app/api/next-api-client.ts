@@ -15,11 +15,11 @@ export class NextApiClient {
   readonly revalidate: number;
   readonly endpoint: string;
 
-  constructor(settings?: NextApiClientSettings) {
-    this.baseUrl = `http://localhost:${process.env.NEXT_PORT}/api/`
+  constructor(settings: NextApiClientSettings) {
+    this.baseUrl = `http://localhost:${process.env.NEXT_PUBLIC_NEXT_PORT}/api/`
     this.contentType = settings?.contenType || 'application/json'
     this.revalidate = settings?.revalidate || 60
-    this.endpoint = settings?.endpoint || ''
+    this.endpoint = settings.endpoint
     this.url = `${this.baseUrl}${this.endpoint}`
   }
 
