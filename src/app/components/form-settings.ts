@@ -7,6 +7,7 @@ export enum TravelInsuranceFormFields {
   Email = 'email',
 }
 
+const h = "s"
 
 export type TravelInsuranceFormShape = {
   [TravelInsuranceFormFields.SocialSecurityNumber]: string;
@@ -23,7 +24,7 @@ export const TravelInsuranceFormValidationSchema = Yup.object({
     .required("Kontonummer er påkrevd"),
   [TravelInsuranceFormFields.Email]: Yup.string().email('Ugyldig e-postaddresse').required(
     `Email er påkrevd`
-    ),
+  ),
 })
 
 export const initialValues: TravelInsuranceFormShape = {

@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+
+
 html,
 body {
   height: 100%;
@@ -10,6 +18,17 @@ body {
   overflow-x: hidden;
 }
 
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #1F2937;
+}
+
+#input-container {
+  font-family: 'Montserrat', sans-serif;
+  color: #1F2937;
+}
 
 
 * {

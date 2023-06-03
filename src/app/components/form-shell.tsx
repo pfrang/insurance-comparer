@@ -4,15 +4,14 @@ import TravelInsuranceForm from "./travel-insurance-form";
 
 interface FormShellprops {
   categorySelected: number;
-  onSubmit: (values: TravelInsuranceFormShape) => Promise<CResponse>
 }
 
 
-export const FormShell = ({ categorySelected, onSubmit }: FormShellprops) => {
+export const FormShell = ({ categorySelected }: FormShellprops) => {
   return (() => {
     switch (categorySelected) {
       case 0:
-        return <TravelInsuranceForm onSubmit={onSubmit} />
+        return <TravelInsuranceForm />
       case 1:
         return <div>Coming soon....</div>
       default: return <div>Coming soon....</div>

@@ -36,7 +36,7 @@ export class NextApiClient {
   }
 
   //make the function above with POST method
-  async post(body: any): Promise<Response>{
+  async post(body: any): Promise<CResponse> {
     const res = await fetch(this.url, {
       method: 'POST',
       headers: {
@@ -48,6 +48,6 @@ export class NextApiClient {
       }
     })
 
-    return res
+    return res.json()
   }
 }

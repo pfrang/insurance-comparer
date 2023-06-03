@@ -27,11 +27,11 @@ export default function Home() {
             <Card key={`${movie.id}-${idx}`} {...movie} />
             )
           })} */}
-          <div>
-            <h2>
-              Hvilken type forsikring ønsker du å sammenligne?
-            </h2>
-          </div>
+        <div>
+          <h2>
+            Hvilken type forsikring ønsker du å sammenligne?
+          </h2>
+        </div>
         <span className='h-2 py-2'>
         </span>
         <div className='grid grid-cols-3 justify-between w-full border-b-2 border-gray-400'>
@@ -45,16 +45,13 @@ export default function Home() {
             )
           })}
         </div>
-        <FormShell categorySelected={categorySelected} onSubmit={onSubmit} />
+        <FormShell categorySelected={categorySelected} />
       </div>
     </>
   )
 }
 
-const onSubmit = async (values: TravelInsuranceFormShape): Promise<CResponse> => {
-  const res = await new NextApiClient({ endpoint: serverEndpoint }).post(values)
-  return res.json()
-}
+
 
 const fetchYr = async (): Promise<Movie[] | undefined> => {
   const Url = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=51.5&lon=0'

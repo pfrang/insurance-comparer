@@ -2,10 +2,10 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    serverActions: true,
+    serverActions: true
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true
   },
   // output: 'export',
   // trailingSlash: true,
@@ -13,13 +13,13 @@ const nextConfig = {
     // loader: 'akamai',
     // path: '',
     domains: [
-      "img.etimg.com",
-      "assets.vogue.com",
-      "m.media-amazon.com",
-      "upload.wikimedia.org",
+      'img.etimg.com',
+      'assets.vogue.com',
+      'm.media-amazon.com',
+      'upload.wikimedia.org',
       'm.media-amazon.com'
-    ],
-  },
+    ]
+  }
   // async headers() {
   //   return [
   //     {
@@ -39,6 +39,6 @@ const nextConfig = {
   //     }
   //   ]
   // }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
