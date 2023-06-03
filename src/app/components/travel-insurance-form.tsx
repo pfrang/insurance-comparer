@@ -4,11 +4,10 @@ import { TravelInsuranceFormValidationSchema, initialValues } from "./form-setti
 
 import { TravelInsuranceFormFields, TravelInsuranceFormShape } from "./form-settings";
 import { FormWithInputContainer } from "../utils/form-with-input-container";
-import { CResponse, NextApiClient } from "../api/next-api-client";
-import { Suspense, useState } from "react";
-import { serverEndpoint } from "../api/server/api-client/server-api-client";
+import { useState } from "react";
 import Loading from "../loading";
 import Response from "./response";
+import { onSubmit } from "../actions";
 
 interface TravelInsuranceFormprops {
 }
@@ -19,14 +18,6 @@ export const TravelInsuranceForm = () => {
   const [error, setError] = useState(false);
 
   const [response, setResponse] = useState("")
-
-  const onSubmit = async (values: TravelInsuranceFormShape): Promise<CResponse> => {
-    setResponse("");
-    setLoading(true);
-    await new Promise(resolve2 => setTimeout(resolve2, 1000))
-    const res = new NextApiClient({ endpoint: serverEndpoint }).post(values)
-    return res
-  }
 
   return (
     <>
@@ -40,6 +31,8 @@ export const TravelInsuranceForm = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={async (values, formikHelpers) => {
+              setResponse("");
+              setLoading(true);
               return await onSubmit(values)
                 .then((res) => {
                   setLoading(false);

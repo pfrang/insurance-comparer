@@ -7,8 +7,6 @@ export enum TravelInsuranceFormFields {
   Email = 'email',
 }
 
-const h = "s"
-
 export type TravelInsuranceFormShape = {
   [TravelInsuranceFormFields.SocialSecurityNumber]: string;
   [TravelInsuranceFormFields.Email]: string;

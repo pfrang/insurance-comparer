@@ -1,9 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { theme } from './theme';
 
 const inter = Inter({ subsets: ['latin'] })
-
 
 export const revalidate = 0
 

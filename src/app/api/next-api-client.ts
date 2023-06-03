@@ -16,7 +16,7 @@ export class NextApiClient {
   readonly endpoint: string;
 
   constructor(settings: NextApiClientSettings) {
-    this.baseUrl = `http://localhost:${process.env.NEXT_PUBLIC_NEXT_PORT}/api/`
+    this.baseUrl = `http://localhost:${process.env.NEXT_PORT}/api/`
     this.contentType = settings?.contenType || 'application/json'
     this.revalidate = settings?.revalidate || 60
     this.endpoint = settings.endpoint
@@ -24,6 +24,7 @@ export class NextApiClient {
   }
 
   async get() {
+
     await fetch(this.url, {
       method: 'GET',
       headers: {

@@ -10,7 +10,7 @@ export const Response = ({ response, setResponse }: ResponseProps) => {
     <div>
       <div>
         <button onClick={() => setResponse("")} className="absolute left-4 flex items-center text-indigo-500 hover:text-indigo-700">
-          <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
           Gå tilbake

@@ -1,14 +1,9 @@
 "use client"
 // import { FC } from "react";
 import { Inter } from 'next/font/google'
-import Card from './components/card';
 import { Movie } from './api/hello/response-schema';
-import { CResponse, NextApiClient } from './api/next-api-client';
-import { serverEndpoint } from './api/server/api-client/server-api-client';
-import { TravelInsuranceFormShape } from './components/form-settings';
 import { useState } from 'react';
 import FormShell from './components/form-shell';
-import { theme } from './theme';
 
 const inter = Inter({ subsets: ['latin'] })
 
