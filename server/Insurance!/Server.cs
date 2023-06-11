@@ -96,7 +96,7 @@ namespace Insurance_
     public async Task<InsuranceResponse> InsuranceStreamer(string ssn, string email)
     {
       TRYG tryg = new TRYG();
-      string trygPrice = await tryg.TrygReiseForsikring();
+      string trygPrice = await tryg.TrygReiseForsikring(ssn);
 
       InsuranceResponse response = new InsuranceResponse { Tryg = trygPrice, Gjensidige = "TBA" };
       return response;

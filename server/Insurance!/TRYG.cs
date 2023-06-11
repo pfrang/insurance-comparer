@@ -26,7 +26,7 @@ namespace Insurance_
     string a = "";
     string b = "";
 
-    public Task<string> TrygReiseForsikring()
+    public Task<string> TrygReiseForsikring(string ssn)
     {
       // ChromeOptions options = new ChromeOptions();d
       // options.AddArgument("--no-sandbox");
@@ -40,7 +40,7 @@ namespace Insurance_
       ClickElement(driver, wait, GLABAL.b);
       ClickElement(driver, wait, GLABAL.c);
       ClickElement(driver, wait, GLABAL.d);
-      TypeElement(driver, wait, GLABAL.e, GLABAL.PersonNummer);
+      TypeElement(driver, wait, GLABAL.e, ssn);
       DoubleClickElement(driver, wait, GLABAL.f);
       TypeElement(driver, wait, GLABAL.g, GLABAL.PostNummer);
       TypeElement(driver, wait, GLABAL.h, GLABAL.Adresse);
