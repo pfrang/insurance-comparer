@@ -8,16 +8,19 @@ import { useState } from "react";
 import Loading from "../loading";
 import Response from "./response";
 import { onSubmit } from "../actions";
+import { Button } from "@mui/material";
+import { InsurancePricesCRepsonse } from "../api/server/route";
+
 
 interface TravelInsuranceFormprops {
+  setError: (value: boolean) => void;
 }
 
-export const TravelInsuranceForm = () => {
+export const TravelInsuranceForm = ({ setError }: TravelInsuranceFormprops) => {
   // write a Formik with the imported Formik component
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const [response, setResponse] = useState("")
+  const [response, setResponse] = useState<undefined | InsurancePricesCRepsonse>(undefined)
 
   return (
     <>
@@ -31,14 +34,17 @@ export const TravelInsuranceForm = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={async (values, formikHelpers) => {
-              setResponse("");
+              setResponse(undefined);
               setLoading(true);
               return await onSubmit(values)
                 .then((res) => {
                   setLoading(false);
-                  setResponse(res.message);
+                  setResponse(res);
                 })
-                .catch((err) => setError(err.message))
+                .catch((err) => {
+                  setError(true);
+                  console.error(err.message);
+                })
                 .finally(() => {
                   formikHelpers.setSubmitting(false);
                 })
@@ -46,30 +52,26 @@ export const TravelInsuranceForm = () => {
             {(formikProps) => {
               return (
                 <Form>
-                  {error ?
-                    <div className="border-2 border-black rounded-md p-2">{error}</div>
-                    :
-                    <div className="flex flex-col gap-2">
-                      {loading && (
-                        <div className="h-28 flex justify-center items-center">
-                          <Loading />
-                        </div>
-                      )}
-                      {!loading && (
-                        <>
-                          <FormWithInputContainer placeholder="Fødsels-og-personnumer" label="Fødsels-og personnummer" type="text" name={TravelInsuranceFormFields.SocialSecurityNumber} />
-                          <FormWithInputContainer
-                            placeholder="Email addresse"
-                            label="Email"
-                            type="text"
-                            name={TravelInsuranceFormFields.Email}
-                          />
-                          <span className="h-2" />
-                          <button onClick={() => formikProps.handleSubmit()} type="submit" className="border-2 bg-white border-black rounded-md hover:opacity-70">Submit</button>
-                        </>
-                      )}
-                    </div>
-                  }
+                  <div className="flex flex-col gap-2">
+                    {loading && (
+                      <div className="h-28 flex justify-center items-center">
+                        <Loading />
+                      </div>
+                    )}
+                    {!loading && (
+                      <>
+                        <FormWithInputContainer placeholder="Fødsels-og-personnumer" label="Fødsels-og personnummer" type="text" name={TravelInsuranceFormFields.SocialSecurityNumber} />
+                        <FormWithInputContainer
+                          placeholder="Email addresse"
+                          label="Email"
+                          type="text"
+                          name={TravelInsuranceFormFields.Email}
+                        />
+                        <span className="h-2" />
+                        <Button onClick={() => formikProps.handleSubmit()} type="submit" className="border-2 bg-white border-black rounded-md hover:opacity-70">Submit</Button>
+                      </>
+                    )}
+                  </div>
                 </Form>
               )
             }}

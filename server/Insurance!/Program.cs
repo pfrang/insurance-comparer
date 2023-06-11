@@ -6,8 +6,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 
-// TRYG tryg = new TRYG();
-// tryg.TrygReiseForsikring();
 Server server = new Server();
-server.Run();
+await server.Run();
 //Fuck you Ezikiel!!

@@ -1,3 +1,5 @@
+import { InsurancePricesCRepsonse } from "./server/route";
+
 export interface NextApiClientSettings {
   baseUrl?: string;
   contenType?: string;
@@ -5,9 +7,6 @@ export interface NextApiClientSettings {
   endpoint: string;
 }
 
-export interface CResponse {
-  message: string;
-}
 export class NextApiClient {
   readonly baseUrl: string;
   readonly url: string;
@@ -18,7 +17,7 @@ export class NextApiClient {
   constructor(settings: NextApiClientSettings) {
     this.baseUrl = `http://localhost:${process.env.NEXT_PORT}/api/`
     this.contentType = settings?.contenType || 'application/json'
-    this.revalidate = settings?.revalidate || 60
+    this.revalidate = settings?.revalidate || 0
     this.endpoint = settings.endpoint
     this.url = `${this.baseUrl}${this.endpoint}`
   }
@@ -37,7 +36,7 @@ export class NextApiClient {
   }
 
   //make the function above with POST method
-  async post(body: any): Promise<CResponse> {
+  async post(body: any): Promise<any> {
     const res = await fetch(this.url, {
       method: 'POST',
       headers: {

@@ -13,7 +13,7 @@ export abstract class RootServiceLayerApiClient extends ServiceLayerApiClient {
   static async get() {
 
     const url = `http://localhost:${process.env.SERVER_PORT}/`
-    console.log("url",url);
+    console.log("url", url);
 
     try {
       const response = await fetch(url);

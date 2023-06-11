@@ -1,44 +1,45 @@
-
-using Insurance_;
-using System.Net;
 using System;
+using System.IO;
+using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
+
 namespace Insurance_
 {
   public class Server
   {
-    // public static void Main()
-    // {
-    //   var server = new Server();
-    //   server.Run();
-    // }
+    private HttpListener listener;
 
-    public void Run()
+    public async Task Run()
     {
-
-      HttpListener listener = new HttpListener();
+      listener = new HttpListener();
       listener.Prefixes.Add("http://localhost:8080/");
       listener.Start();
 
       Console.WriteLine("Listening for requests on http://localhost:8080/...");
       Console.WriteLine("Press enter to exit");
 
-      // Handle incoming requests
       while (true)
       {
+        HttpListenerContext context = await listener.GetContextAsync();
+        _ = HandleRequestAsync(context);
+      }
+    }
 
-        // Get the context of the incoming request
-        HttpListenerContext context = listener.GetContext();
+    private async Task HandleRequestAsync(HttpListenerContext context)
+    {
+      try
+      {
         HttpListenerRequest request = context.Request;
         Console.WriteLine("Request received: " + request.HttpMethod + " " + request.Url);
-        // Read the request body
+
         string body = "";
         if (request.HasEntityBody)
         {
           using (StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding))
           {
-            body = reader.ReadToEnd();
+            body = await reader.ReadToEndAsync();
           }
         }
 
@@ -48,32 +49,30 @@ namespace Insurance_
         {
           case "GET":
             string responseString = "Request accepted.";
-            byte[] responseBytes = responseBytes = System.Text.Encoding.UTF8.GetBytes(responseString);
+            byte[] responseBytes = Encoding.UTF8.GetBytes(responseString);
             context.Response.ContentType = "text/plain";
             context.Response.ContentLength64 = responseBytes.Length;
-            context.Response.OutputStream.Write(responseBytes, 0, responseBytes.Length);
+            await context.Response.OutputStream.WriteAsync(responseBytes, 0, responseBytes.Length);
             break;
           case "POST":
-            // Deserialize the JSON string into an object
-            CarInsuranceFormBody requestBody = JsonConvert.DeserializeObject<CarInsuranceFormBody>(body);
+            InsuranceFormBodyRequest requestBody = JsonConvert.DeserializeObject<InsuranceFormBodyRequest>(body);
             Console.WriteLine("Body received: " + requestBody.Ssn + " " + requestBody.Email);
-            // Convert the JSON string to bytes
-            string responseBody = "{\"message\": \"Hello from C#\"}";
-            byte[] buffer = Encoding.UTF8.GetBytes(responseBody);
 
-            // Set the response headers
+            InsuranceResponse response = await InsuranceStreamer(requestBody.Ssn, requestBody.Email);
+            Console.WriteLine("Response: " + response.Tryg + " " + response.Gjensidige);
+
+            string stringifiedResponse = JsonConvert.SerializeObject(response);
+            byte[] buffer = Encoding.UTF8.GetBytes(stringifiedResponse);
+
             context.Response.StatusCode = (int)HttpStatusCode.OK;
             context.Response.ContentType = "application/json";
             context.Response.ContentLength64 = buffer.Length;
-            // Get the response output stream
-            var responseStream = context.Response.OutputStream;
 
-            // Write the response to the output stream
-            responseStream.Write(buffer, 0, buffer.Length);
-
-            // Close the output stream
-            responseStream.Flush();
-            responseStream.Close();
+            using (var responseStream = context.Response.OutputStream)
+            {
+              await responseStream.WriteAsync(buffer, 0, buffer.Length);
+              await responseStream.FlushAsync();
+            }
 
             Console.WriteLine("Response sent!");
             break;
@@ -81,25 +80,43 @@ namespace Insurance_
             context.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
             break;
         }
-
-        // Check the content type of the request
-        if (!string.IsNullOrEmpty(request.ContentType) && (request.ContentType == "application/json" || request.ContentType == "text/html"))
-        {
-          // Handle the request only if the content type is application/json
-        }
-        else
-        {
-          // If the content type is not application/json, return an error response
-          context.Response.StatusCode = (int)HttpStatusCode.UnsupportedMediaType;
-          context.Response.Close();
-        }
       }
+      catch (Exception ex)
+      {
+        // Handle any exceptions that occur during request handling
+        Console.WriteLine("Error occurred during request handling: " + ex.Message);
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+      }
+      finally
+      {
+        context.Response.Close();
+      }
+    }
+
+    public async Task<InsuranceResponse> InsuranceStreamer(string ssn, string email)
+    {
+      TRYG tryg = new TRYG();
+      string trygPrice = await tryg.TrygReiseForsikring();
+
+      InsuranceResponse response = new InsuranceResponse { Tryg = trygPrice, Gjensidige = "TBA" };
+      return response;
+    }
+
+    public void Stop()
+    {
+      listener?.Stop();
+      listener?.Close();
     }
   }
 }
 
+public class InsuranceResponse
+{
+  public string Tryg { get; set; }
+  public string Gjensidige { get; set; }
+}
 
-public class CarInsuranceFormBody
+public class InsuranceFormBodyRequest
 {
   public string Ssn { get; set; }
   public string Email { get; set; }
