@@ -32,6 +32,10 @@ namespace Insurance_
       // options.AddArgument("--no-sandbox");
       // options.BinaryLocation = "/usr/bin/google-chrome";
       IWebDriver driver = new ChromeDriver();
+      var chromeOptions = new ChromeOptions();
+      chromeOptions.AddArgument("--headless");
+      chromeOptions.AddArguments("--no-sandbox");
+      chromeOptions.AddArguments("--disable-dev-shm-usage");
       WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
 
       driver.Navigate().GoToUrl("https://pris.tryg.no/index.html?execution=e1s2");

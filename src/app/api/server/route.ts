@@ -3,7 +3,8 @@ import { RootServiceLayerApiClient } from "./api-client/server-api-client"
 
 export interface InsurancePricesCRepsonse {
   tryg: string;
-  gjensidge: string;
+  if: string;
+  frende: string;
 }
 
 export async function GET(request: Request, { params }: any) {
