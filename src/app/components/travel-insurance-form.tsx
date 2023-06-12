@@ -20,7 +20,7 @@ export const TravelInsuranceForm = ({ setError }: TravelInsuranceFormprops) => {
   // write a Formik with the imported Formik component
   const [loading, setLoading] = useState(false);
 
-  const [response, setResponse] = useState<undefined | InsurancePricesCRepsonse>({ tryg: "10", frende: "20", if: "20" })
+  const [response, setResponse] = useState<undefined | InsurancePricesCRepsonse>(undefined)
 
   return (
     <>

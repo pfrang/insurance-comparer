@@ -36,7 +36,7 @@ export class NextApiClient {
   }
 
   //make the function above with POST method
-  async post(body: any): Promise<any> {
+  async post(body: any): Promise<InsurancePricesCRepsonse> {
     const res = await fetch(this.url, {
       method: 'POST',
       headers: {
