@@ -59,7 +59,7 @@ namespace Insurance_
             Console.WriteLine("Body received: " + requestBody.Ssn + " " + requestBody.Email);
 
             InsuranceResponse response = await InsuranceStreamer(requestBody.Ssn, requestBody.Email);
-            Console.WriteLine("Response: " + response.Tryg + " " + response.Gjensidige);
+            Console.WriteLine("Response: " + "tryg:" + response.tryg + " if:" + response.ifForsikring + " frende:" + response.frende);
 
             string stringifiedResponse = JsonConvert.SerializeObject(response);
             byte[] buffer = Encoding.UTF8.GetBytes(stringifiedResponse);
@@ -95,10 +95,18 @@ namespace Insurance_
 
     public async Task<InsuranceResponse> InsuranceStreamer(string ssn, string email)
     {
-      TRYG tryg = new TRYG();
-      string trygPrice = await tryg.TrygReiseForsikring(ssn);
+      TRYG tryg = new TRYG(ssn);
+      Task<string> trygTask = Task.Run(() => tryg.TrygReise());
+      Task<string> ifTask = Task.Run(() => tryg.IF_Reise());
+      Task<string> frendeTask = Task.Run(() => tryg.Frende_Reise());
 
-      InsuranceResponse response = new InsuranceResponse { Tryg = trygPrice, Gjensidige = "TBA" };
+      string[] allPrices = await Task.WhenAll(trygTask, ifTask, frendeTask);
+
+      string trygPrice = allPrices[0];
+      string ifPrice = allPrices[1];
+      string frendePrice = allPrices[2];
+
+      InsuranceResponse response = new InsuranceResponse { tryg = trygPrice, ifForsikring = ifPrice, frende = frendePrice };
       return response;
     }
 
@@ -112,8 +120,9 @@ namespace Insurance_
 
 public class InsuranceResponse
 {
-  public string Tryg { get; set; }
-  public string Gjensidige { get; set; }
+  public string tryg { get; set; }
+  public string ifForsikring { get; set; }
+  public string frende { get; set; }
 }
 
 public class InsuranceFormBodyRequest

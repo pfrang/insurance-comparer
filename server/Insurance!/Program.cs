@@ -9,3 +9,4 @@ using OpenQA.Selenium.Support.UI;
 Server server = new Server();
 await server.Run();
 //Fuck you Ezikiel!!
+// TRYG tryg = new TRYG();
