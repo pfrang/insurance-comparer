@@ -2,10 +2,6 @@ import { useField } from "formik";
 
 type TextFieldType = "text" | "text-area" | "password";
 
-type FormInputProps = {
-  type: TextFieldType;
-  errored: boolean;
-}
 
 type ContainedFormTextInputProps = {
   label: string;
@@ -29,7 +25,7 @@ export const FormWithInputContainer = ({ label, placeholder,
       </label>
       <input className="p-2 rounded-sm" id="input-container" placeholder={placeholder} {...field} {...props} />
       {meta.error ? (
-        <div className="error">{meta.error}</div>
+        <div className="error text-sm break-normal">{meta.error}</div>
       ) : null}
     </div>
   )

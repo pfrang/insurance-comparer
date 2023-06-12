@@ -25,9 +25,13 @@ namespace Insurance_
   {
     private string ssn;
 
-    public TRYG(string ssn)
+    public TRYG(string ssn, string name, string forWhom, string birthDate, string deductible)
     {
       ssn = ssn;
+      forWhom = forWhom;
+      name = name;
+      birthDate = birthDate;
+      deductible = deductible;
     }
 
     public string GetInputFieldValue(IWebDriver driver, WebDriverWait wait, string xpath)
@@ -99,7 +103,8 @@ namespace Insurance_
       IWebDriver driver = new ChromeDriver();
       WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
 
-      driver.Navigate().GoToUrl("https://pris.tryg.no/index.html?execution=e1s2");
+      driver.Navigate().GoToUrl("https://pris.tryg.no/index.html");
+
       ClickElement(driver, wait, GLABAL.a);
 
       ClickElement(driver, wait, GLABAL.aa);
@@ -110,11 +115,23 @@ namespace Insurance_
       OneDown(driver, wait, GLABAL.ff);
       TypeElement(driver, wait, GLABAL.gg, GLABAL.FulltNavn);
       ClickElement(driver, wait, GLABAL.hh);
-      DoubleClickElement(driver, wait, GLABAL.ii);
-      DoubleClickElement(driver, wait, GLABAL.jj);
-      string s = "s";
-      return Task.FromResult(s);
-      //TRykk en ned
+      ClickElement(driver, wait, GLABAL.ii);
+      try
+      {
+        // Try to find the element
+        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(GLABAL.ii)));
+
+        // If the element is found, click on it
+        ClickElement(driver, wait, GLABAL.ii);
+      }
+      catch (WebDriverTimeoutException)
+      {
+        // If the element is not found within 2 seconds, do nothing
+      }
+      Thread.Sleep(4000);
+      ClickElement(driver, wait, GLABAL.jj);
+      string TrygReisePris = GetElementText(driver, wait, GLABAL.kk);
+      return Task.FromResult(TrygReisePris);
 
     }
     public Task<string> TrygInnbo()

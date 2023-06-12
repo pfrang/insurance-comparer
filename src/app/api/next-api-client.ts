@@ -1,4 +1,5 @@
-import { InsurancePricesCRepsonse } from "./server/route";
+import { TravelInsuranceFormShape } from "../components/form-settings";
+import { InsurancePricesCRepsonse, InsurancePricesPayLoad } from "./server/route";
 
 export interface NextApiClientSettings {
   baseUrl?: string;
@@ -36,7 +37,7 @@ export class NextApiClient {
   }
 
   //make the function above with POST method
-  async post(body: any): Promise<InsurancePricesCRepsonse> {
+  async post(body: InsurancePricesPayLoad): Promise<InsurancePricesCRepsonse> {
     const res = await fetch(this.url, {
       method: 'POST',
       headers: {

@@ -56,9 +56,8 @@ namespace Insurance_
             break;
           case "POST":
             InsuranceFormBodyRequest requestBody = JsonConvert.DeserializeObject<InsuranceFormBodyRequest>(body);
-            Console.WriteLine("Body received: " + requestBody.Ssn + " " + requestBody.Email);
 
-            InsuranceResponse response = await InsuranceStreamer(requestBody.Ssn, requestBody.Email);
+            InsuranceResponse response = await InsuranceStreamer(body);
             Console.WriteLine("Response: " + "tryg:" + response.tryg + " if:" + response.ifForsikring + " frende:" + response.frende);
 
             string stringifiedResponse = JsonConvert.SerializeObject(response);
@@ -93,9 +92,10 @@ namespace Insurance_
       }
     }
 
-    public async Task<InsuranceResponse> InsuranceStreamer(string ssn, string email)
+    public async Task<InsuranceResponse> InsuranceStreamer(InsuranceFormBodyRequest body)
     {
-      TRYG tryg = new TRYG(ssn);
+      Console.WriteLine("Body received: " + body.Ssn + " " + body.deductible + " " + body.forWhom + " " + body);
+      TRYG tryg = new TRYG(body.Ssn, body.deductible, body.forWhom);
       Task<string> trygTask = Task.Run(() => tryg.TrygReise());
       Task<string> ifTask = Task.Run(() => tryg.IF_Reise());
       Task<string> frendeTask = Task.Run(() => tryg.Frende_Reise());
@@ -128,5 +128,7 @@ public class InsuranceResponse
 public class InsuranceFormBodyRequest
 {
   public string Ssn { get; set; }
-  public string Email { get; set; }
+  public string email { get; set; }
+  public string forWhom { get; set; }
+  public string deductible { get; set; }
 }

@@ -1,6 +1,6 @@
 "use client"
-import { Formik, Form } from "formik";
-import { TravelInsuranceFormValidationSchema, initialValues } from "./form-settings";
+import { Formik, Form, FormikProps } from "formik";
+import { TravelInsuranceFormValidationSchema, getValueForDeductible, getValueForDeductibleForForm, getValueForWhom, getValueForWhomForForm, initialValues } from "./form-settings";
 
 import { TravelInsuranceFormFields, TravelInsuranceFormShape } from "./form-settings";
 import { FormWithInputContainer } from "../utils/form-with-input-container";
@@ -8,8 +8,10 @@ import { useState } from "react";
 import Loading from "../loading";
 import Response from "./response";
 import { onSubmit } from "../actions";
-import { Button } from "@mui/material";
+import { Button, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
 import { InsurancePricesCRepsonse } from "../api/server/route";
+import React from "react";
+import { SelectComp } from "../utils/select";
 
 
 interface TravelInsuranceFormprops {
@@ -34,9 +36,18 @@ export const TravelInsuranceForm = ({ setError }: TravelInsuranceFormprops) => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={async (values, formikHelpers) => {
+              const values2 = {
+                ...values,
+                forWhom: getValueForWhom(values[TravelInsuranceFormFields.ForWhom]),
+                deductible: getValueForDeductible(values[TravelInsuranceFormFields.Deductible])
+              }
+
+              console.log(values2);
+
+              return
               setResponse(undefined);
               setLoading(true);
-              return await onSubmit(values)
+              return await onSubmit(values2)
                 .then((res) => {
                   setLoading(false);
                   setResponse(res);
@@ -67,7 +78,40 @@ export const TravelInsuranceForm = ({ setError }: TravelInsuranceFormprops) => {
                           type="text"
                           name={TravelInsuranceFormFields.Email}
                         />
+
+                        <FormWithInputContainer
+                          placeholder="Skriv inn fullt navn her"
+                          label="Fult navn"
+                          type="text"
+                          name={TravelInsuranceFormFields.Name} />
+
                         <span className="h-2" />
+                        <FormWithInputContainer
+                          placeholder="Skriv inn din fødselsdato her"
+                          label="Fødselsdato"
+                          type="text"
+                          name={TravelInsuranceFormFields.BirthDate}
+                        />
+                        <span className="h-2" />
+                        <SelectComp name={TravelInsuranceFormFields.ForWhom}
+                          value={formikProps.values[TravelInsuranceFormFields.ForWhom]}
+                          formikProps={formikProps}
+                          label="Hvem skal forsikringen gjelde for"
+                          placeholder="Velg"
+                          items={getValueForWhomForForm()}
+
+                        />
+
+                        <span className="h-2" />
+                        <SelectComp name={TravelInsuranceFormFields.Deductible}
+                          value={formikProps.values[TravelInsuranceFormFields.Deductible]}
+                          formikProps={formikProps}
+                          label="Hvilken egenandel ønsker du?"
+                          placeholder="Velg"
+                          items={getValueForDeductibleForForm()}
+                        />
+
+
                         <Button onClick={() => formikProps.handleSubmit()} type="submit" className="border-2 bg-white border-black rounded-md hover:opacity-70">Submit</Button>
                       </>
                     )}
