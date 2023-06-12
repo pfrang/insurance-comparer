@@ -23,15 +23,75 @@ namespace Insurance_
     public class TRYG
     {
 
-        string a = "";
-        string b = "";
-
-
-        public void TrygReiseForsikring()
+        public string GetInputFieldValue(IWebDriver driver, WebDriverWait wait, string xpath)
         {
-            // ChromeOptions options = new ChromeOptions();d
-            // options.AddArgument("--no-sandbox");
-            // options.BinaryLocation = "/usr/bin/google-chrome";
+            IWebElement inputField = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+            return inputField.GetAttribute("value");
+        }
+
+
+        public string GetElementText(IWebDriver driver, WebDriverWait wait, string xpath)
+        {
+            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+            return element.Text;
+
+        }
+
+
+        public void ClickElement(IWebDriver driver, WebDriverWait wait, string xpath)
+        {
+            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+            element.Click();
+        }
+
+
+        public void DoubleClickElement(IWebDriver driver, WebDriverWait wait, string xpath)
+        {
+            bool staleElement = true;
+            while (staleElement)
+            {
+                try
+                {
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
+                    IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+                    element.Click();
+                    Thread.Sleep(200);
+                    element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+                    element.Click();
+                    staleElement = false;
+                }
+                catch (StaleElementReferenceException e)
+                {
+                    staleElement = true;
+                }
+            }
+        }
+
+
+
+        public void TypeElement(IWebDriver driver, WebDriverWait wait, string xpath, string text)
+        {
+            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+            element.SendKeys(text);
+        }
+
+        public void OneDown(IWebDriver driver, WebDriverWait wait, string xpath)
+        {
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
+            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
+            element.Click();
+            element.SendKeys(Keys.Down + Keys.Enter);
+        }
+
+
+
+        public void TrygInnBo()
+        {
+
             IWebDriver driver = new ChromeDriver();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
 
@@ -62,7 +122,7 @@ namespace Insurance_
             ClickElement(driver, wait, GLABAL.o);
             TypeElement(driver, wait, GLABAL.p, GLABAL.ForsikringsBeløp);
             DoubleClickElement(driver, wait, GLABAL.q);
-            ClickElement(driver, wait, GLABAL.q);
+            //ClickElement(driver, wait, GLABAL.q);
             ClickElement(driver, wait, GLABAL.r);
             DoubleClickElement(driver, wait, GLABAL.s);
             string ReisePris_Tryg = GetElementText(driver, wait, GLABAL.t);
@@ -70,51 +130,87 @@ namespace Insurance_
 
         }
 
-
-
-        public string GetInputFieldValue(IWebDriver driver, WebDriverWait wait, string xpath)
+        public void TrygReise()
         {
-            IWebElement inputField = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
-            return inputField.GetAttribute("value");
+            IWebDriver driver = new ChromeDriver();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
+
+            driver.Navigate().GoToUrl("https://pris.tryg.no/index.html?execution=e1s2");
+            ClickElement(driver, wait, GLABAL.a);
+
+            ClickElement(driver, wait, GLABAL.aa);
+            ClickElement(driver, wait, GLABAL.bb);
+            ClickElement(driver, wait, GLABAL.cc);
+            TypeElement(driver, wait, GLABAL.dd, GLABAL.PersonNummer);
+            DoubleClickElement(driver, wait, GLABAL.ee);
+            OneDown(driver, wait, GLABAL.ff);
+            TypeElement(driver, wait, GLABAL.gg, GLABAL.FulltNavn);
+            ClickElement(driver, wait, GLABAL.hh);
+            DoubleClickElement(driver, wait, GLABAL.ii);
+            DoubleClickElement(driver, wait, GLABAL.jj);
+            //TRykk en ned
+
+
+
+
         }
 
 
-        public string GetElementText(IWebDriver driver, WebDriverWait wait, string xpath)
+        public string IF_Reise()
+        {
+            IWebDriver driver = new ChromeDriver();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            driver.Navigate().GoToUrl("https://www.if.no/privat/forsikring/forsikringskalkulator");
+
+            ClickElement(driver, wait, GLABAL.IfReise("A"));
+            ClickElement(driver, wait, GLABAL.IfReise("B"));
+            Thread.Sleep(2000);
+            ClickElement(driver, wait, GLABAL.IfReise("C"));
+            ClickElement(driver, wait, GLABAL.IfReise("D"));
+            ClickElement(driver, wait, GLABAL.IfReise("E"));
+            TypeElement(driver, wait, GLABAL.IfReise("F"), GLABAL.PersonNummer);
+            TypeElement(driver, wait, GLABAL.IfReise("G"), GLABAL.ForNavn);
+            TypeElement(driver, wait, GLABAL.IfReise("H"), GLABAL.EtterNavn);
+            ClickElement(driver, wait, GLABAL.IfReise("I"));
+            string ReisePris_If = GetElementTextt(driver, wait, GLABAL.IfReise("J"));
+            Console.WriteLine(ReisePris_If);
+            return ReisePris_If;
+        }
+
+        public string Frende_Reise()
+        {
+            IWebDriver driver = new ChromeDriver();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            driver.Navigate().GoToUrl("https://www.frende.no/nettbutikk/");
+
+            ClickElement(driver, wait, GLABAL.FrendeReise("A"));
+            ClickElement(driver, wait, GLABAL.FrendeReise("B"));
+            ClickElement(driver, wait, GLABAL.FrendeReise("C"));
+            ClickElement(driver, wait, GLABAL.FrendeReise("D"));
+            TypeElement(driver, wait, GLABAL.FrendeReise("E"), GLABAL.ForNavn);
+            TypeElement(driver, wait, GLABAL.FrendeReise("F"), GLABAL.EtterNavn);
+            TypeElement(driver, wait, GLABAL.FrendeReise("G"), GLABAL.PersonNummer);
+            ClickElement(driver, wait, GLABAL.FrendeReise("H"));
+            string ReisePris_Frende = GetInputFieldValue(driver, wait, GLABAL.FrendeReise("I"));
+            Console.WriteLine(ReisePris_Frende);
+            return ReisePris_Frende;
+
+        }
+
+
+
+
+
+
+
+        public string GetElementTextt(IWebDriver driver, WebDriverWait wait, string xpath)
         {
             IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
-            return element.Text;
+            return element.GetAttribute("innerText");
+
+
 
         }
-
-
-        public void ClickElement(IWebDriver driver, WebDriverWait wait, string xpath)
-        {
-            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
-            element.Click();
-        }
-
-
-        public void DoubleClickElement(IWebDriver driver, WebDriverWait wait, string xpath)
-        {
-            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
-            element.Click();
-            Thread.Sleep(200);
-            element.Click();
-        }
-
-
-        public void TypeElement(IWebDriver driver, WebDriverWait wait, string xpath, string text)
-        {
-            IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(xpath)));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(xpath)));
-            element.SendKeys(text);
-        }
-
-
-
     }
 }
