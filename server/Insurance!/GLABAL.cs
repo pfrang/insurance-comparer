@@ -11,6 +11,8 @@ namespace Insurance_
 
     /// TRYGInnbo
 
+    public static TimeSpan timeout = TimeSpan.FromSeconds(60);
+
     public static string a = "//*[@id=\"coiPage-1\"]/div[2]/button[2]";
     public static string b = "/html/body/div[6]/div[2]/div[2]/div/div/div[2]/a/span[1]";
     public static string c = "/html/body/div[6]/div[2]/div[2]/div/div/div[2]/div/div/ul/li[2]/a/span";

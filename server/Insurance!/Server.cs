@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -34,6 +35,20 @@ namespace Insurance_
         HttpListenerRequest request = context.Request;
         Console.WriteLine("Request received: " + request.HttpMethod + " " + request.Url);
 
+        var stopwatch = Stopwatch.StartNew();
+
+        // Process the request here
+        // ...
+
+        // Check if the elapsed time exceeds the threshold
+        TimeSpan threshold = TimeSpan.FromMinutes(3);
+        if (stopwatch.Elapsed > threshold)
+        {
+          // Handle the timeout
+          context.Response.StatusCode = (int)HttpStatusCode.RequestTimeout;
+          return;
+        }
+
         string body = "";
         if (request.HasEntityBody)
         {
@@ -57,10 +72,11 @@ namespace Insurance_
           case "POST":
             InsuranceFormBodyRequest requestBody = JsonConvert.DeserializeObject<InsuranceFormBodyRequest>(body);
 
-            InsuranceResponse response = await InsuranceStreamer(body);
+            InsuranceResponse response = await InsuranceStreamer(requestBody);
             Console.WriteLine("Response: " + "tryg:" + response.tryg + " if:" + response.ifForsikring + " frende:" + response.frende);
 
             string stringifiedResponse = JsonConvert.SerializeObject(response);
+            Console.WriteLine("Response: " + stringifiedResponse);
             byte[] buffer = Encoding.UTF8.GetBytes(stringifiedResponse);
 
             context.Response.StatusCode = (int)HttpStatusCode.OK;
@@ -95,7 +111,7 @@ namespace Insurance_
     public async Task<InsuranceResponse> InsuranceStreamer(InsuranceFormBodyRequest body)
     {
       Console.WriteLine("Body received: " + body.Ssn + " " + body.deductible + " " + body.forWhom + " " + body);
-      TRYG tryg = new TRYG(body.Ssn, body.deductible, body.forWhom);
+      TRYG tryg = new TRYG();
       Task<string> trygTask = Task.Run(() => tryg.TrygReise());
       Task<string> ifTask = Task.Run(() => tryg.IF_Reise());
       Task<string> frendeTask = Task.Run(() => tryg.Frende_Reise());

@@ -42,9 +42,6 @@ export const TravelInsuranceForm = ({ setError }: TravelInsuranceFormprops) => {
                 deductible: getValueForDeductible(values[TravelInsuranceFormFields.Deductible])
               }
 
-              console.log(values2);
-
-              return
               setResponse(undefined);
               setLoading(true);
               return await onSubmit(values2)

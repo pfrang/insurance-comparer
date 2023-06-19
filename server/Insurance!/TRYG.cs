@@ -25,13 +25,8 @@ namespace Insurance_
   {
     private string ssn;
 
-    public TRYG(string ssn, string name, string forWhom, string birthDate, string deductible)
+    public TRYG()
     {
-      ssn = ssn;
-      forWhom = forWhom;
-      name = name;
-      birthDate = birthDate;
-      deductible = deductible;
     }
 
     public string GetInputFieldValue(IWebDriver driver, WebDriverWait wait, string xpath)
@@ -101,7 +96,7 @@ namespace Insurance_
     public Task<string> TrygReise()
     {
       IWebDriver driver = new ChromeDriver();
-      WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
+      WebDriverWait wait = new WebDriverWait(driver, GLABAL.timeout); // wait up to 10 seconds
 
       driver.Navigate().GoToUrl("https://pris.tryg.no/index.html");
 
@@ -131,6 +126,7 @@ namespace Insurance_
       Thread.Sleep(4000);
       ClickElement(driver, wait, GLABAL.jj);
       string TrygReisePris = GetElementText(driver, wait, GLABAL.kk);
+      driver.Close();
       return Task.FromResult(TrygReisePris);
 
     }
@@ -144,7 +140,7 @@ namespace Insurance_
       chromeOptions.AddArgument("--headless");
       chromeOptions.AddArguments("--no-sandbox");
       chromeOptions.AddArguments("--disable-dev-shm-usage");
-      WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // wait up to 10 seconds
+      WebDriverWait wait = new WebDriverWait(driver, GLABAL.timeout); // wait up to 10 seconds
 
       driver.Navigate().GoToUrl("https://pris.tryg.no/index.html?execution=e1s2");
 
@@ -185,7 +181,7 @@ namespace Insurance_
     public Task<string> IF_Reise()
     {
       IWebDriver driver = new ChromeDriver();
-      WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+      WebDriverWait wait = new WebDriverWait(driver, GLABAL.timeout);
       driver.Navigate().GoToUrl("https://www.if.no/privat/forsikring/forsikringskalkulator");
 
       ClickElement(driver, wait, GLABAL.IfReise("A"));
@@ -200,13 +196,14 @@ namespace Insurance_
       ClickElement(driver, wait, GLABAL.IfReise("I"));
       string ReisePris_If = GetElementTextt(driver, wait, GLABAL.IfReise("J"));
       Console.WriteLine(ReisePris_If);
+      driver.Close();
       return Task.FromResult(ReisePris_If);
     }
 
     public Task<string> Frende_Reise()
     {
       IWebDriver driver = new ChromeDriver();
-      WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+      WebDriverWait wait = new WebDriverWait(driver, GLABAL.timeout);
       driver.Navigate().GoToUrl("https://www.frende.no/nettbutikk/");
 
       ClickElement(driver, wait, GLABAL.FrendeReise("A"));
@@ -219,6 +216,7 @@ namespace Insurance_
       ClickElement(driver, wait, GLABAL.FrendeReise("H"));
       string ReisePris_Frende = GetInputFieldValue(driver, wait, GLABAL.FrendeReise("I"));
       Console.WriteLine(ReisePris_Frende);
+      driver.Close();
       return Task.FromResult(ReisePris_Frende);
 
     }
